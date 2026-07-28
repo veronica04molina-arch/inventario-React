@@ -1,4 +1,5 @@
 import { useState } from "react";
+import logo from "../assets/img.png";
 
 function Inventario() {
   const [nombre, setNombre] = useState("");
@@ -7,21 +8,38 @@ function Inventario() {
   const [cantidad, setCantidad] = useState("");
 
   const [productos, setProductos] = useState([]);
+  const [editandoId, setEditandoId] = useState(null);
 
   // Agregar producto
   const agregarProducto = (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (
-      nombre.trim() === "" ||
-      categoria.trim() === "" ||
-      precio === "" ||
-      cantidad === ""
-    ) {
-      alert("Complete todos los campos.");
-      return;
-    }
+  if (
+    nombre.trim() === "" ||
+    categoria.trim() === "" ||
+    precio === "" ||
+    cantidad === ""
+  ) {
+    alert("Complete todos los campos.");
+    return;
+  }
 
+  if (editandoId !== null) {
+    const productosActualizados = productos.map((producto) =>
+      producto.id === editandoId
+        ? {
+            ...producto,
+            nombre,
+            categoria,
+            precio,
+            cantidad: Number(cantidad),
+          }
+        : producto
+    );
+
+    setProductos(productosActualizados);
+    setEditandoId(null);
+  } else {
     const nuevoProducto = {
       id: productos.length + 1,
       nombre,
@@ -31,13 +49,13 @@ function Inventario() {
     };
 
     setProductos([...productos, nuevoProducto]);
+  }
 
-    // Limpiar formulario
-    setNombre("");
-    setCategoria("");
-    setPrecio("");
-    setCantidad("");
-  };
+  setNombre("");
+  setCategoria("");
+  setPrecio("");
+  setCantidad("");
+};
 
   // Eliminar producto
   const eliminarProducto = (id) => {
@@ -48,10 +66,17 @@ function Inventario() {
     setProductos(nuevaLista);
   };
 
+  const editarProducto = (producto) => {
+  setNombre(producto.nombre);
+  setCategoria(producto.categoria);
+  setPrecio(producto.precio);
+  setCantidad(producto.cantidad);
+  setEditandoId(producto.id);
+};
   return (
     <div className="container">
       <div className="encabezado">
-        <img src="/img.png" alt="Logo Inventario" />
+        <img src={logo} alt="Logo Inventario" />
         <h1>Sistema de Gestión de Inventario</h1>
       </div>
 
@@ -111,7 +136,7 @@ function Inventario() {
           </div>
 
           <button type="submit" className="boton">
-            Agregar producto
+            {editandoId !== null ? "Actualizar producto" : "Agregar producto"}
           </button>
         </form>
       </div>
@@ -144,7 +169,9 @@ function Inventario() {
                   {producto.cantidad < 5 ? "Bajo Stock" : "Normal"}
                 </td>
                 <td>
-                  <button>Editar</button>
+                  <button onClick={() => editarProducto(producto)}>
+                    Editar
+                  </button>
 
                   <button
                     onClick={() => eliminarProducto(producto.id)}

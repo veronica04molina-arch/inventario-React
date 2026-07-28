@@ -1,0 +1,121 @@
+/* Evita que los elementos se agranden inesperadamente */
+* {
+    box-sizing: border-box;
+}
+body{
+    margin: 0;
+    background-color: rgb(252, 252, 216);
+    font-family:cursive;
+    text-align: center;
+}
+.encabezado{
+    display: flex;
+    align-items: center;
+    border-bottom: 3px solid rgb(93, 148, 81);
+}
+.encabezado img{
+    width: 110px;
+    height: auto;
+}
+.encabezado h1{
+    margin-left: 0;
+    font-size: 26px;
+}
+p{
+    color: rgb(44, 40, 40);
+}
+.contenedor-formulario h2{
+    font-size: 22px;
+    margin: 8px;
+    color: rgb(44, 40, 40);
+}
+.contenedor-formulario{
+    background-color:rgb(252, 252, 216);
+    padding:5px 0 ;
+    max-width:500px ;
+    margin:auto;
+    box-shadow: 0 0 25px #d4cccc ;
+    margin-top: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+input{
+    width:100%;
+    box-sizing: border-box;
+    padding: 5px 10px;
+    border:1px solid rgb(93, 148, 81);
+    box-shadow: 0 0 15px  #d4cccc;
+    background-color: rgb(250, 245, 245);
+    border-radius: 5px;
+    font-family: inherit;
+}
+.campo{
+    padding: 10px 16px;
+}
+label{
+    display: block;
+    margin-bottom: 8px;
+}
+.boton{
+    border:1px solid rgb(36, 34, 34);
+    box-shadow: 0 0 15px  #d4cccc;
+    background-color: rgb(93, 148, 81);
+    color: #faf0f0;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-family: inherit;
+    margin: 10px;
+}
+.boton:hover{
+    border:2px solid rgb(93, 148, 81);
+    box-shadow: 0 0 15px rgb(14, 13, 13) ;
+    background-color:#fcf0f0  ;
+    color: rgb(93, 148, 81);
+}
+.contenedor-tabla{
+    padding:10px;
+    margin:auto;
+    background-color:rgb(252, 252, 216);
+}
+table{
+    margin: auto;
+    border-collapse: collapse;
+}
+thead{
+    color: rgb(44, 40, 40);
+}
+th, td{
+    padding: 10px;
+    text-align: center;
+}
+footer{
+    background-color:#e6dcdc;
+    padding: 4px;
+}
+td button {
+    padding: 5px 10px;
+    margin: 0 5px;
+    border: 1px solid rgb(36, 34, 34);
+    background-color: rgb(93, 148, 81);
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+td button:hover {
+    background-color: white;
+    color: rgb(93, 148, 81);
+    border: 1px solid rgb(93, 148, 81);
+}
+
+table {
+    width: 100%;
+    max-width: 900px;
+}
+
+th {
+    background-color: rgb(93, 148, 81);
+    color: white;
+}
