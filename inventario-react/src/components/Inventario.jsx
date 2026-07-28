@@ -6,6 +6,48 @@ function Inventario() {
   const [precio, setPrecio] = useState("");
   const [cantidad, setCantidad] = useState("");
 
+  const [productos, setProductos] = useState([]);
+
+  // Agregar producto
+  const agregarProducto = (e) => {
+    e.preventDefault();
+
+    if (
+      nombre.trim() === "" ||
+      categoria.trim() === "" ||
+      precio === "" ||
+      cantidad === ""
+    ) {
+      alert("Complete todos los campos.");
+      return;
+    }
+
+    const nuevoProducto = {
+      id: productos.length + 1,
+      nombre,
+      categoria,
+      precio,
+      cantidad: Number(cantidad),
+    };
+
+    setProductos([...productos, nuevoProducto]);
+
+    // Limpiar formulario
+    setNombre("");
+    setCategoria("");
+    setPrecio("");
+    setCantidad("");
+  };
+
+  // Eliminar producto
+  const eliminarProducto = (id) => {
+    const nuevaLista = productos.filter(
+      (producto) => producto.id !== id
+    );
+
+    setProductos(nuevaLista);
+  };
+
   return (
     <div className="container">
       <div className="encabezado">
@@ -22,13 +64,12 @@ function Inventario() {
       <div className="contenedor-formulario">
         <h2>Agregar producto</h2>
 
-        <form>
+        <form onSubmit={agregarProducto}>
           <div className="campo">
             <label htmlFor="nombre">Nombre del producto:</label>
             <input
               type="text"
               id="nombre"
-              name="nombre"
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
               required
@@ -41,9 +82,9 @@ function Inventario() {
             <input
               type="text"
               id="categoria"
-              name="categoria"
               value={categoria}
               onChange={(e) => setCategoria(e.target.value)}
+              required
             />
           </div>
 
@@ -52,9 +93,9 @@ function Inventario() {
             <input
               type="number"
               id="precio"
-              name="precio"
               value={precio}
               onChange={(e) => setPrecio(e.target.value)}
+              required
             />
           </div>
 
@@ -63,9 +104,9 @@ function Inventario() {
             <input
               type="number"
               id="cantidad"
-              name="cantidad"
               value={cantidad}
               onChange={(e) => setCantidad(e.target.value)}
+              required
             />
           </div>
 
@@ -92,8 +133,29 @@ function Inventario() {
           </thead>
 
           <tbody>
-            {/* Aquí mostraremos los productos más adelante */}
+            {productos.map((producto) => (
+              <tr key={producto.id}>
+                <td>{producto.id}</td>
+                <td>{producto.nombre}</td>
+                <td>{producto.categoria}</td>
+                <td>${producto.precio}</td>
+                <td>{producto.cantidad}</td>
+                <td>
+                  {producto.cantidad < 5 ? "Bajo Stock" : "Normal"}
+                </td>
+                <td>
+                  <button>Editar</button>
+
+                  <button
+                    onClick={() => eliminarProducto(producto.id)}
+                  >
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+            ))}
           </tbody>
+
         </table>
       </div>
     </div>
